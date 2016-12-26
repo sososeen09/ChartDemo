@@ -58,8 +58,10 @@ public class MyXAxisRenderer extends XAxisRenderer {
 //                position[0] = mViewPortHandler.contentLeft() + labelWidth / 2;
 //            }
             if (i == 0) {
+                int labelWidth = Utils.calcTextWidth(mAxisLabelPaint, label);
                 Log.d(TAG, "drawLabels posX: " + posX);
-                c.drawText(label, posX,
+                position[0] = posX + labelWidth / 2;
+                c.drawText(label, position[0],
                         pos + Utils.convertPixelsToDp(mViewPortHandler.offsetBottom()),
                         mAxisLabelPaint);
             } else {
