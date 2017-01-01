@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
@@ -126,7 +127,7 @@ public class Demo2Activity extends AppCompatActivity {
         mv.setChartView(mChart); // For bounds control
         mv.setShowOriginalValue(true);
         mChart.setMarker(mv); // Set the marker to the chart
-
+//        mChart.setTouchEnabled(false);
     }
 
     private void getOffLineData() {
@@ -233,6 +234,8 @@ public class Demo2Activity extends AppCompatActivity {
         // modify the legend ...
         l.setForm(Legend.LegendForm.LINE);
 
+        Entry entry = values.get(values.size() - 1);
+        mChart.highlightValue(new Highlight(entry.getX(), entry.getY(), 0), true);
     }
 
 

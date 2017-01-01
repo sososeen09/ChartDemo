@@ -1,6 +1,7 @@
 package com.dx168.chartdemo.self;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -48,5 +49,11 @@ public class OneCircleLineChart extends LineChart {
             ((OneCircleLineChartRenderer) mRenderer).releaseBitmap();
         }
         super.onDetachedFromWindow();
+    }
+
+    @Override
+    protected void drawMarkers(Canvas canvas) {
+        super.drawMarkers(canvas);
+
     }
 }
