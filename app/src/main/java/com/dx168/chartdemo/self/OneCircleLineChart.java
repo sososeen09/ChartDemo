@@ -84,6 +84,7 @@ public class OneCircleLineChart extends LineChart {
 
             // callbacks to update the content
             mMarker.refreshContent(e, highlight);
+
             // draw the marker
             mMarker.draw(canvas, pos[0], pos[1]+ Utils.convertDpToPixel(-5f));
         }
