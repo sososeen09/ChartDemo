@@ -79,7 +79,8 @@ public class Demo2Activity extends AppCompatActivity {
         //x轴
         xAxisLine = (MyXAxis) mChart.getXAxis();
         xAxisLine.setDrawLabels(true);
-        xAxisLine.setDrawGridLines(false);
+        xAxisLine.setLabelCount(5,true);
+        xAxisLine.setDrawGridLines(true);
         xAxisLine.setDrawAxisLine(true);
         xAxisLine.setPosition(XAxis.XAxisPosition.BOTTOM);
         // xAxisLine.setLabelsToSkip(59);
@@ -90,7 +91,7 @@ public class Demo2Activity extends AppCompatActivity {
         /*折线图y轴左没有basevalue，调用系统的*/
         axisLeftLine.setLabelCount(5, true);
         axisLeftLine.setDrawLabels(true);
-        axisLeftLine.setDrawGridLines(false);
+        axisLeftLine.setDrawGridLines(true);
         /*轴不显示 避免和border冲突*/
         axisLeftLine.setDrawAxisLine(true);
         axisLeftLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -107,6 +108,7 @@ public class Demo2Activity extends AppCompatActivity {
         axisRightLine = mChart.getAxisRight();
         axisRightLine.setLabelCount(2, true);
         axisRightLine.setDrawLabels(true);
+        axisRightLine.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         axisRightLine.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -152,11 +154,9 @@ public class Demo2Activity extends AppCompatActivity {
 
     private SparseArray<String> setXLabels() {
         SparseArray<String> xLabels = new SparseArray<>();
-        xLabels.put(0, "09:30");
-        xLabels.put(60, "10:30");
-        xLabels.put(121, "11:30/13:00");
-        xLabels.put(182, "14:00");
-        xLabels.put(241, "15:00");
+        xLabels.put(0, "06:00");
+        xLabels.put(121, "11:00/12:00");
+        xLabels.put(241, "16:00");
         return xLabels;
     }
 

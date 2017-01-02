@@ -36,9 +36,6 @@ public class MyXAxisRenderer extends XAxisRenderer {
                 0f, 0f
         };
         int count = mXAxis.getXLabels().size();
-        float xoffset = mLineChart.getAxisLeft().getXOffset();
-        float posX = mViewPortHandler.offsetLeft() + xoffset;
-
 
 
         for (int i = 0; i < count; i++) {
@@ -57,10 +54,32 @@ public class MyXAxisRenderer extends XAxisRenderer {
 //            } else if ((position[0] - labelWidth / 2) < mViewPortHandler.contentLeft()) {//左出界
 //                position[0] = mViewPortHandler.contentLeft() + labelWidth / 2;
 //            }
+            int labelWidth = Utils.calcTextWidth(mAxisLabelPaint, label);
             if (i == 0) {
-                int labelWidth = Utils.calcTextWidth(mAxisLabelPaint, label);
-                Log.d(TAG, "drawLabels posX: " + posX);
+                //第一个为了与Y对其
+                float xoffset = mLineChart.getAxisLeft().getXOffset();
+                float posX = mViewPortHandler.offsetLeft() + xoffset;
                 position[0] = posX + labelWidth / 2;
+                c.drawText(label, position[0],
+                        pos + Utils.convertPixelsToDp(mViewPortHandler.offsetBottom()),
+                        mAxisLabelPaint);
+            } else if (i == count - 1) {
+                //最后一个，要与Y对其
+                float xoffset = mLineChart.getAxisRight().getXOffset();
+                float posX = mViewPortHandler.contentRight() + mViewPortHandler.offsetRight() + xoffset;
+//                position[0] = posX - 4 * labelWidth / 2;
+//                position[0] = mViewPortHandler.contentRight() - labelWidth / 2 - mViewPortHandler.offsetRight();
+                position[0] = mXAxis.mEntries[mXAxis.mEntries.length - 1];
+                mTrans.pointValuesToPixel(position);
+                position[0] = position[0] - labelWidth ;
+                c.drawText(label, position[0],
+                        pos + Utils.convertPixelsToDp(mViewPortHandler.offsetBottom()),
+                        mAxisLabelPaint);
+            } else if (i == count / 2) {
+//                position[0] = mViewPortHandler.contentWidth() / 2 + labelWidth / 2- mViewPortHandler.offsetLeft()-mXAxis.getXOffset();
+                float entry = mXAxis.mEntries[mXAxis.mEntries.length / 2];
+                position[0] = entry;
+                mTrans.pointValuesToPixel(position);
                 c.drawText(label, position[0],
                         pos + Utils.convertPixelsToDp(mViewPortHandler.offsetBottom()),
                         mAxisLabelPaint);
