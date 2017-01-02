@@ -4,8 +4,11 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.dx168.chartdemo.api.ConstantTest;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Demo2Activity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -40,6 +44,7 @@ public class Demo2Activity extends AppCompatActivity {
     private YAxis axisRightLine;
     private LineDataSet d1;
     private SparseArray<String> stringSparseArray;
+    private int mCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +166,7 @@ public class Demo2Activity extends AppCompatActivity {
         axisLeftLine.setAxisMinimum(mData.getMin());
         axisRightLine.setAxisMaximum(mData.getPercentMax());
         axisRightLine.setAxisMinimum(mData.getPercentMin());
+        xAxisLine.setAxisMaximum(80f);
 
         ArrayList<Entry> values = new ArrayList<>();
         for (int i = 0, j = 0; i < mData.getDatas().size(); i++, j++) {
@@ -236,7 +242,46 @@ public class Demo2Activity extends AppCompatActivity {
 
         Entry entry = values.get(values.size() - 1);
         mChart.highlightValue(new Highlight(entry.getX(), entry.getY(), 0), true);
+//        mHandler.postDelayed(mRunnable, 3000);
+        mCount = 0;
+        mHandler.sendEmptyMessageDelayed(1, 3000);
     }
 
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            List<Entry> values = d1.getValues();
+            if (((float) values.size() + 10 > xAxisLine.getAxisMaximum())) {
+                xAxisLine.setAxisMaximum((float) values.size() + 10);
+            }
+
+            float y = values.get(values.size() - 1).getY() + (mCount % 2 == 0 ? 0.02f : (-0.02f));
+            Entry entry = new Entry(values.size(), y);
+//            values.add(entry);
+            d1.addEntry(entry);
+            d1.notifyDataSetChanged();
+            mChart.notifyDataSetChanged();
+            mChart.highlightValue(new Highlight(entry.getX(), entry.getY(), 0), true);
+            Log.d(TAG, "handleMessage: ");
+            mHandler.sendEmptyMessageDelayed(1, 3000);
+            mCount++;
+        }
+    };
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            List<Entry> values = d1.getValues();
+            Entry entry = new Entry(values.size(), values.get(values.size() - 1).getY() + 0.02f);
+//            values.add(entry);
+            d1.addEntry(entry);
+            d1.notifyDataSetChanged();
+            mChart.notifyDataSetChanged();
+//            mChart.postInvalidate();
+            if (BuildConfig.DEBUG) Log.d(TAG, "run: ");
+            mHandler.postDelayed(mRunnable, 3000);
+        }
+    };
 
 }
