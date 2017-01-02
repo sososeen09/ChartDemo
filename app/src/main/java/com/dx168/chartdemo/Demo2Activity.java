@@ -135,6 +135,9 @@ public class Demo2Activity extends AppCompatActivity {
         mv.setShowOriginalValue(true);
         mChart.setMarker(mv); // Set the marker to the chart
 //        mChart.setTouchEnabled(false);
+
+        mChart.setMinOffset(5f);
+//        mChart.setExtraOffsets(-30f,-30f,-30f,-30f);
     }
 
     private void getOffLineData() {
@@ -245,6 +248,7 @@ public class Demo2Activity extends AppCompatActivity {
 //        mHandler.postDelayed(mRunnable, 3000);
         mCount = 0;
         mHandler.sendEmptyMessageDelayed(1, 10000);
+
     }
 
 
