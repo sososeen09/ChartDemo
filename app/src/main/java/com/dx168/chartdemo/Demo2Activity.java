@@ -244,7 +244,7 @@ public class Demo2Activity extends AppCompatActivity {
         mChart.highlightValue(new Highlight(entry.getX(), entry.getY(), 0), true);
 //        mHandler.postDelayed(mRunnable, 3000);
         mCount = 0;
-        mHandler.sendEmptyMessageDelayed(1, 3000);
+        mHandler.sendEmptyMessageDelayed(1, 10000);
     }
 
 
@@ -264,7 +264,7 @@ public class Demo2Activity extends AppCompatActivity {
             mChart.notifyDataSetChanged();
             mChart.highlightValue(new Highlight(entry.getX(), entry.getY(), 0), true);
             Log.d(TAG, "handleMessage: ");
-            mHandler.sendEmptyMessageDelayed(1, 3000);
+            mHandler.sendEmptyMessageDelayed(1, 10000);
             mCount++;
         }
     };
