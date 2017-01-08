@@ -217,7 +217,9 @@ public class Demo2Activity extends AppCompatActivity {
         d1.setDrawCircleHole(true);
         d1.setHighlightEnabled(true);
         d1.setValueTextSize(9f);
-        d1.setDrawFilled(false);
+
+        //绘制下面填充
+        d1.setDrawFilled(true);
         d1.setDrawValues(false);
         d1.setFormLineWidth(1f);
 
