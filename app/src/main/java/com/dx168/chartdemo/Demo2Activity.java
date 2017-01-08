@@ -134,7 +134,7 @@ public class Demo2Activity extends AppCompatActivity {
         mv.setChartView(mChart); // For bounds control
         mv.setShowOriginalValue(true);
         mChart.setMarker(mv); // Set the marker to the chart
-//        mChart.setTouchEnabled(false);
+        mChart.setTouchEnabled(false);
 
         mChart.setMinOffset(5f);
 //        mChart.setExtraOffsets(-30f,-30f,-30f,-30f);
